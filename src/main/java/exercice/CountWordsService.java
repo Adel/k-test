@@ -17,7 +17,7 @@ public class CountWordsService {
     protected void processLine(String line) {
         //remove non Alphabetical chars and put all to lowercase
         String alphabetic = line.replaceAll("[^A-Za-z0-9\\-\\s+]", "").toLowerCase();
-        for (String word : alphabetic.split(" ")) {
+        for (String word : alphabetic.split("\\s+")) {
             words.put(word, words.getOrDefault(word, 0) + 1);
         }
     }
