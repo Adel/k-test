@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group 'com.adelelia'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile('org.junit.jupiter:junit-jupiter-api:5.2.0')
+    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.2.0')
+}
+
+task run (type: JavaExec){
+    if (project.hasProperty("appArgs")) {
+        args Eval.me(appArgs)
+    }
+
+    description = "Coding Exercice"
+    main = 'exercice.HelloWorld'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'exercice.HelloWorld'
+    }
+}
