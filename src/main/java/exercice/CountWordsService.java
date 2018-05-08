@@ -13,9 +13,10 @@ public class CountWordsService {
 
     private final Map<String, Integer> words = new HashMap<>();
 
+    //FIXME what about multiple spaces?
     protected void processLine(String line) {
         //remove non Alphabetical chars and put all to lowercase
-        String alphabetic = line.replaceAll("[^A-Za-z0-9\\- ]", "").toLowerCase();
+        String alphabetic = line.replaceAll("[^A-Za-z0-9\\-\\s+]", "").toLowerCase();
         for (String word : alphabetic.split(" ")) {
             words.put(word, words.getOrDefault(word, 0) + 1);
         }
