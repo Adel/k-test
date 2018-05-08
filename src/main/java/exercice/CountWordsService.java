@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -33,13 +34,17 @@ public class CountWordsService {
         try (Stream<String> stream = readFile(inputFileName);
              PrintWriter printWriter = getPrintWriter(outputFileName)) {
             stream.forEach(this::processLine);
+            final Comparator<Map.Entry<String, Integer>> byValue =
+                    Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder());
+            final Comparator<Map.Entry<String, Integer>> byKey =
+                    Comparator.comparing(Map.Entry::getKey);
             words.entrySet()
                     .stream()
-                    .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                    .sorted(byValue.thenComparing(byKey))
                     .map(e -> new StringBuilder(e.getKey()).append("\t").append(e.getValue()).toString())
                     .forEach(printWriter::println);
             if (printWriter.checkError()) {
-                throw new RuntimeException("unknow error");
+                throw new RuntimeException("unknown error");
             }
         }
     }
