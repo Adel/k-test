@@ -22,12 +22,12 @@ task run (type: JavaExec){
     }
 
     description = "Coding Exercice"
-    main = 'exercice.HelloWorld'
+    main = 'exercice.CountWordsService'
     classpath = sourceSets.main.runtimeClasspath
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'exercice.HelloWorld'
+        attributes 'Main-Class': 'exercice.CountWordsService'
     }
 }
