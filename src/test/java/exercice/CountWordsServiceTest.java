@@ -47,4 +47,13 @@ class CountWordsServiceTest {
         assertEquals(new Integer(2), service.getWordCount("bar"));
     }
 
+    @Test
+    void processLine5() {
+        //line with multiple words
+        service.processLine("foo& bar! foo-bar foo{ bar}");
+        assertEquals(new Integer(2), service.getWordCount("foo"));
+        assertEquals(new Integer(2), service.getWordCount("bar"));
+        assertEquals(new Integer(1), service.getWordCount("foo-bar"));
+    }
+
 }

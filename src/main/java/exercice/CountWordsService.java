@@ -12,10 +12,9 @@ public class CountWordsService {
 
     private final Map<String, Integer> words = new HashMap<>();
 
-    //TODO keep hyphen and underscore?
     protected void processLine(String line) {
         //remove non Alphabetical chars and put all to lowercase
-        String alphabetic = line.replaceAll("[^A-Za-z0-9 ]", "").toLowerCase();
+        String alphabetic = line.replaceAll("[^A-Za-z0-9\\- ]", "").toLowerCase();
         for (String word : alphabetic.split(" ")) {
             words.put(word, words.getOrDefault(word, 0) + 1);
         }
@@ -39,6 +38,9 @@ public class CountWordsService {
                     .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                     .map(e -> new StringBuilder(e.getKey()).append("\t").append(e.getValue()).toString())
                     .forEach(printWriter::println);
+            if (printWriter.checkError()) {
+                throw new RuntimeException("unknow error");
+            }
         }
     }
 
